@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Projetos p5.js</title>
+</head>
+<body>
+    <h1>Consulta de Projetos p5.js</h1>
+    <form method="POST">
+        <label for="link">Insira o link do projeto p5.js:</label>
+        <input type="text" id="link" name="link" required>
+        <button type="submit">Consultar</button>
+    </form>
+    
+    {% if project_info %}
+        <h2>Informações do Projeto:</h2>
+        <p><strong>Nome:</strong> {{ project_info.name }}</p>
+        <p><strong>Link:</strong> <a href="{{ project_info.link }}">{{ project_info.link }}</a></p>
+        <p><strong>Data de Criação:</strong> {{ project_info.creation_date }}</p>
+        <p><strong>Data de Modificação:</strong> {{ project_info.modification_date }}</p>
+    {% elif error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+</body>
+</html>
