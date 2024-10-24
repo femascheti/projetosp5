@@ -13,6 +13,7 @@ app = Flask(__name__,static_folder='static')
 def index():
     project_info = None
     error_message = None
+    driver = None
     
     if request.method == 'POST':
         link = request.form.get('link')
@@ -27,8 +28,8 @@ def index():
             options.add_argument("--headless")
             driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
             driver.get(user_sketches_url)
-            time.sleep(30)  # Aumentar o tempo para aguardar a página carregar completamente
-
+            time.sleep(30) 
+            
             # Encontrar a tabela
             table = driver.find_element(By.CLASS_NAME, 'sketches-table')
             project_row = None
@@ -56,7 +57,8 @@ def index():
             error_message = f"Ocorreu um erro: {e}"
         
         finally:
-            driver.quit()  # Fecha o navegador
+            if driver:
+                driver.quit()  # Fecha o navegador
 
     return render_template('index.html', project_info=project_info, error_message=error_message)
 
