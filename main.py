@@ -7,7 +7,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 import time
 
 
-app = Flask(__name__)
+app = Flask(__name__,static_folder='static')
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
